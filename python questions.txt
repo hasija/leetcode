@@ -1,0 +1,7 @@
+python questions:
+Mutable variables
+static method
+why postgres or mysql
+all the joins in orm
+put vs post
+decorators
