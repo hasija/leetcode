@@ -12,7 +12,7 @@ class Solution:
                     return 1
                 if not right and top:
                     return 2
-                else:
+                if not top and right:
                     return 0
                 prev_dist_side = 0
                 right = not right
@@ -27,7 +27,7 @@ class Solution:
                 prev_dist_side = -prev_dist_side
                 # prev_dist_side = q-dist_to_travel
                 top = not top
-                right = not right
+                # right = not right
             # print (prev_dist_side, top, right)
 
 
