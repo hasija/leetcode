@@ -49,9 +49,9 @@ class Solution:
             curr_prof = dp_prof[idx]+p
             if curr_prof>dp_prof[-1]:
                 dp_prof.append(curr_prof)
-            # else:
-                # dp_prof.append(dp_prof[-1])
-                dp_end.append(e)
+            else:
+                dp_prof.append(dp_prof[-1])
+            dp_end.append(e)
             # print (s,e, p, idx,dp_prof[-1])
         print (dp_prof)
         return dp_prof[-1]
