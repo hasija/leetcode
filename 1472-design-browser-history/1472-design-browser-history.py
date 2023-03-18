@@ -1,28 +1,54 @@
 class BrowserHistory:
+
     def __init__(self, homepage: str):
-        self._history, self._future = [], []
-        # 'homepage' is the first visited URL.
-        self._current = homepage
+        self.history = [homepage]
+        self.curr = 0
+        self.max = 1
 
     def visit(self, url: str) -> None:
-        # Push 'current' in 'history' stack and mark 'url' as 'current'.
-        self._history.append(self._current)
-        self._current = url
-        # We need to delete all entries from 'future' stack.
-        self._future = []
+        
+        self.curr+=1
+        if self.curr>=self.max:
+            self.history.append(url)
+            self.max+=1
+        else:
+            self.history[self.curr]=url
+            i = self.curr+1
+            new_max=0
+            while (i<self.max):
+                self.history.pop()
+                i+=1
+                new_max+=1
+            self.max-=new_max
 
     def back(self, steps: int) -> str:
-        # Pop elements from 'history' stack, and push elements in 'future' stack.
-        while steps > 0 and self._history:
-            self._future.append(self._current)
-            self._current = self._history.pop()
-            steps -= 1
-        return self._current
+        # print (self.history)
+        if self.curr==self.max-1 and self.curr==0:
+            # print ("move is false", steps)
+            move=False
+        else:
+            move=True
+        self.curr-=steps
+        if self.curr<0:
+            self.curr=0
+        # print("back", self.history, self.curr, self.max)
+        return self.history[self.curr]
 
     def forward(self, steps: int) -> str:
-        # Pop elements from 'future' stack, and push elements in 'history' stack.
-        while steps > 0 and self._future:
-            self._history.append(self._current)
-            self._current = self._future.pop()
-            steps -= 1
-        return self._current
+
+            
+        self.curr+=steps
+        if self.curr>=self.max:
+            self.curr=self.max-1
+
+        
+        # print("fwd", self.history, self.curr, self.max)
+
+        return self.history[self.curr]
+
+
+# Your BrowserHistory object will be instantiated and called as such:
+# obj = BrowserHistory(homepage)
+# obj.visit(url)
+# param_2 = obj.back(steps)
+# param_3 = obj.forward(steps)
