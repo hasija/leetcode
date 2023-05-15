@@ -12,14 +12,17 @@ class Solution:
         gap = 0
         end = node
         while node:
-            if counter==k:
+            if counter==k-1:
                 first=node
             counter+=1
-            if gap>=k:
+            if gap>=k+1:
                 end = end.next
             gap+=1
             node = node.next
-        first.val,end.val=end.val,first.val
+        if first == end:
+            return start.next
+        first.next ,end.next = end.next, first.next
+        first.next.next, end.next.next = end.next.next, first.next.next 
         return start.next
         
                     
