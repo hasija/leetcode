@@ -36,7 +36,7 @@ class Solution:
         r = maxSum
         while l<r:
             # print("iterating",l,r)
-            mid = (l+r+1)//2
+            mid = math.ceil((l+r)/2)
             if get_sum(mid) <= maxSum:
                 l=mid
             else:
