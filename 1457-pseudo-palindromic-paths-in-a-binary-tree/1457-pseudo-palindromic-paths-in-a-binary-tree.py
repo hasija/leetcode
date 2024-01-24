@@ -6,27 +6,19 @@
 #         self.right = right
 class Solution:
     def pseudoPalindromicPaths (self, root: Optional[TreeNode]) -> int:
-        node_dict = collections.defaultdict(int)
-        self.count = 0
-        def dfs(node):
+        self.cnt = 0
+        def dfs(node, seen):
             if node:
-                node_dict[node.val]+=1
-                out1 , val =dfs(node.left)
-                if out1:
-                    node_dict[val]-=1
-                out2 , val =dfs(node.right)
-                if out2:
-                    node_dict[val]-=1
+                if node.val in seen:
+                    seen.remove(node.val)
+                else:
+                    seen.add(node.val)
+                dfs(node.right, seen.copy())
+                dfs(node.left, seen.copy())
                 
-                if out1 == out2 ==False:
-                    tmp = 0
-                    for k,v in node_dict.items():
-                        if v%2!=0:
-                            tmp+=1
-                    if tmp<=1:
-                        self.count+=1
-                return True, node.val
-            else:
-                return False, -1
-        dfs(root)
-        return self.count
+                if node.left is None and node.right is None:
+                    if len(seen)<=1:
+                        self.cnt+=1
+                
+        dfs(root, set())
+        return self.cnt
