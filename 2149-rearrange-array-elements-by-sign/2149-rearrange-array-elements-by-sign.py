@@ -1,25 +1,14 @@
 class Solution:
     def rearrangeArray(self, nums: List[int]) -> List[int]:
-        posi = deque()
-        negi = deque()
-        new_arr = []
-        curr = '+'
+        ans = [0]*len(nums)
+        posi = 0
+        neg = 1
+        
         for i in nums:
             if i>0:
-                posi.append(i)
+                ans[posi] = i
+                posi+=2
             else:
-                negi.append(i)
-            if curr == '+' and posi:
-                new_arr.append(posi.popleft())
-                curr = '-'
-            elif curr == '-' and negi:
-                new_arr.append(negi.popleft())
-                curr = '+'
-        while negi or posi:
-            if curr == '+' and posi:
-                new_arr.append(posi.popleft())
-                curr = '-'
-            elif curr == '-' and negi:
-                new_arr.append(negi.popleft())
-                curr = '+'
-        return new_arr
+                ans[neg] = i
+                neg+=2
+        return ans
