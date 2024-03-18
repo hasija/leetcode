@@ -7,7 +7,7 @@ class Solution:
             if prev is None:
                 ans+=1
                 prev = i
-            elif (i[0]<=prev[1] and prev[0]<=i[1]) or (prev[0]<=i[1] and i[0]<=prev[1]):
+            elif (i[0]<=prev[1] and prev[0]<=i[1]):
                     prev = [max(prev[0],i[0]),min(prev[1],i[1])]
             else:
                 prev = i
