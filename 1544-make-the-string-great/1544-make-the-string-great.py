@@ -1,18 +1,18 @@
 class Solution:
     def makeGood(self, s: str) -> str:
         i = 1
-        n = len(s)
-        while (i<n): 
+        s = list(s)
+        # print (s)
+        while len(s)>1 and i<len(s):
             if i==0:
                 i+=1
                 continue
-            curr = s[i]
-            past = s[i-1]
-            if curr!=past and (curr.lower()==past or curr==past.lower()):
-                s=s[:i-1]+s[i+1:]
-                n = len(s)
+            if s[i].lower()==s[i-1].lower() and ord(s[i])!=ord(s[i-1]):
+                del s[i]
+                del s[i-1]
+                # print (i, s)
                 i-=1
+                continue
             else:
                 i+=1
-        return s
-                
+        return ''.join(s)
