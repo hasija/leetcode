@@ -45,8 +45,10 @@ class Solution:
                     AND = add_and(nums[curr],AND)
                     curr+=1
                 else:
-                    AND = sub_and(nums[last], AND)
-                    last+=1
+                    return out
+                # else:
+                #     AND = sub_and(nums[last], AND)
+                #     last+=1
         return out
                     
                 
