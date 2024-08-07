@@ -12,8 +12,8 @@ class Solution:
             if curr>=100:
                 curr_base = curr//100
                 # print ("Basew", curr_base)
-                if curr_base:
-                    word.append(below_ten[curr_base])
+                # if curr_base:
+                word.append(below_ten[curr_base])
                 word.append("Hundred")
                 curr %= 100
            
