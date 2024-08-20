@@ -1,29 +1,35 @@
 class Solution:
     def stoneGameII(self, piles: List[int]) -> int:
+        n = len(piles)
         memo = {}
-        
-        def dp(p, i, m):
-            if i >=len(piles):
+        def dp(turn, m, idx):
+            if idx>=n:
                 return 0
             
-            if (p,i,m) in memo:
-                return memo[(p,i,m)]
-            val = float('inf') if p else -float('inf')
-            val_arr = []
-            for x in range(1, 2*m+1):
+            if (turn, m, idx) in memo:
+                return memo[(turn, m, idx)]
+            local_max = 0
+            local_min = float('inf')
+            cnt = 0
+            for i in range(0, (m*2)):
+                if idx+i>=n:
+                    break
+                cnt+=piles[idx+i]
+                new_m = max(m,i+1)
                 
-                if p:
-                    curr = dp(not p, i+x, max(m, x))
-                    val = min(val, curr)
+                if turn == 'alice':
+                    resp = dp('bob', new_m, (idx+i+1))
+                    local_max = max(resp+cnt,local_max)
+                    # print ("Turn ALICE", 'local-max',local_max, 'loop idx',i, 'dflt idx',idx)
                 else:
-                    curr = sum(piles[i:i+x])+dp(not p, i+x, max(m, x))
-                    val = max(val, curr)
-                # val_arr.append(curr)
-            # print ("value at i ,p ",i,p, val_arr)
-            memo[(p,i,m)] = val
-            return val
-            # return min(val_arr) if p else max(val_arr)
-        return dp(False, 0, 1)
-                    
-                
+                    resp = dp('alice', new_m, (idx+i+1))
+                    local_min = min(resp,local_min)
             
+            
+            if turn == 'alice':
+                memo[(turn, m, idx)]=local_max
+                return local_max
+            else:
+                memo[(turn, m, idx)]=local_min
+                return local_min
+        return dp('alice', 1, 0)
