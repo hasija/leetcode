@@ -11,6 +11,8 @@ class Solution:
                 return a*b
         
         def dp(exp):
+            if exp in memo:
+                return memo[exp]
             n = len(exp)
             if n==1:
                 return [int(exp)]
@@ -25,6 +27,7 @@ class Solution:
                     for l in left:
                         for r in right:
                             ans.append(action(char, l, r))
+            memo[exp] = ans
             return ans
         return dp(exp)
                     
