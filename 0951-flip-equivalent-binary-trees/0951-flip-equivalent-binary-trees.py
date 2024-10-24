@@ -10,8 +10,8 @@ class Solution:
         # print (root1, root2)
         
         def dfs(n1, n2):
-            if (n1, n2) in memo:
-                return memo[(n1, n2)]
+            # if (n1, n2) in memo:
+            #     return memo[(n1, n2)]
             if n1 is None and n2 is None:
                 memo[(n1, n2)] = True
                 return True
