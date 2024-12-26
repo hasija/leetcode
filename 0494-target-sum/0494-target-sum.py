@@ -1,21 +1,22 @@
 class Solution:
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
-        cnt = Counter()
         n = len(nums)
         def dfs(idx):
             if idx>=n:
-                return [0]
-            vals = dfs(idx+1)
-            ret = []
+                return Counter()
+            cnt = dfs(idx+1)
             curr = nums[idx]
-            for i in vals:
-                ret.append(i+curr)
-                ret.append(i-curr)
-            return ret
-        ans = 0
-        ret = dfs(0)
-        for val in ret:
-            if val == target:
-                ans+=1
-        return ans
+            new_cnt = Counter()
+            for k in cnt:
+                new_cnt[k+curr] +=cnt[k]
+                new_cnt[k-curr] +=cnt[k]
+
+            cnt = new_cnt
+            if len(cnt) == 0:
+                cnt[curr]+=1
+                cnt[-curr]+=1            
+            return cnt
+        cnt = dfs(0)
+        # print(cnt)
+        return cnt[target]
                 
